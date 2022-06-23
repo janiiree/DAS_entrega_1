@@ -45,4 +45,17 @@
     <string name="start_task_question">Do you want to start this task?</string>
     <string name="start">Start!</string>
     <string name="not_now">Not now</string>
+    <string name="dont_use_phone">You can\'t use your phone until you finish your task. Whem it\'s done click on the \"FINISH TASK\" button</string>
+    <string name="message_1">WORK!!</string>
+    <string name="btn_message_1">Ok...</string>
+    <string name="message_2">Don\'t touch me…</string>
+    <string name="btn_message_2">Oh, sorry...</string>
+    <string name="message_3">I\'m not paying you to be on the phone</string>
+    <string name="btn_message_3">I\'m sorry boss!</string>
+    <string name="message_4">Don\'t you dare...</string>
+    <string name="btn_message_4">...</string>
+    <string name="message_5">Do that again.... Next time I won\'t be that kind...</string>
+    <string name="btn_message_5">(*glup*)</string>
+    <string name="finish_congrats">Well done! You\'ve finished a task!</string>
+    <string name="logout">Log out</string>
 </resources>

@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,9 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements KeepLoggedDialog.OnInputListener {
+public class MainActivity extends AppCompatActivity
+        implements KeepLoggedDialog.OnInputListener, StartTaskDialog.OnStartInputListener {
 
-    boolean keepLogged;
+    private boolean keepLogged;
     DBHelper dbHelper = new DBHelper(this, "DBHelper", null, 1);
     FloatingActionButton fbtnAdd;
     String username, email, password;
@@ -33,17 +37,6 @@ public class MainActivity extends AppCompatActivity implements KeepLoggedDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkLogin();
-/*
-
-        Task task = new Task();
-        task.setEmail("janire@gmail.com");
-        task.setTaskName("Trabajo DAS");
-        task.setStartDate("20/06/2022");
-        task.setFinishDate("");
-        task.setFinished(0);
- */
-
-
     }
 
     @Override
@@ -51,6 +44,27 @@ public class MainActivity extends AppCompatActivity implements KeepLoggedDialog.
         super.onResume();
 
         taskList = dbHelper.selectTasks(email);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout, menu);
+        return true;
+    }
+
+    public void onOptionItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                SharedPreferences preferences = getSharedPreferences("log", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("keeplogged", false);
+
+                editor.putString("username", "");
+                editor.putString("email", "");
+                editor.putString("password", "");
+                editor.apply();
+                break;
+        }
     }
 
     private void checkLogin() {
@@ -103,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements KeepLoggedDialog.
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Task task = taskList.get(position);
 
+                    DialogFragment startTaskDialog = new StartTaskDialog();
+                    startTaskDialog.show(getSupportFragmentManager(), "etiqueta");
                 }
             });
         }
@@ -118,5 +134,14 @@ public class MainActivity extends AppCompatActivity implements KeepLoggedDialog.
     @Override
     public void getInput(boolean input) {
         keepLogged = input;
+    }
+
+    @Override
+    public void getInputStart(boolean input) {
+        Log.d("EMPEZAR", String.valueOf(input));
+        if (input) {
+            Intent i = new Intent(this, StartTaskActivity.class);
+            startActivity(i);
+        }
     }
 }
