@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RatingBar" parent="Theme.MaterialComponents.DayNight">
+        <item name="ratingBarStyle">@style/Controls.RatingBar</item>
+<!--        <item name="colorControlActivated">@colors/yellow_500</item>
+        <item name="colorControlNormal">@colors/orange_900</item>-->
+    </style>
+
+    <style name="Controls.RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:isIndicator">false</item>
+    </style>
+
+</resources>
